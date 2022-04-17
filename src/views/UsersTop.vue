@@ -5,13 +5,9 @@
     <hr />
     <div class="row text-center">
       <div v-for="user in users" :key="user.id" class="col-3">
-        <a href="#">
-          <img
-            src="http://via.placeholder.com/300x300?text=No+Image"
-            width="140px"
-            height="140px"
-          />
-        </a>
+        <router-link :to="{ name: 'user-profile', params: { id: user.id } }">
+          <img :src="user.image" width="140px" height="140px" />
+        </router-link>
         <h2>{{ user.name }}</h2>
         <span class="badge badge-secondary"
           >追蹤人數：{{ user.FollowerCount }}</span
