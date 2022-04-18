@@ -3,23 +3,24 @@
     <div class="album py-5 bg-light">
       <div class="container">
         <UserProfileCard
-          :initial-profile="profile"
+          :user="user"
+          :is-current-user="user.id === currentUser.id"
           :initial-is-followed="isFollowed"
         />
         <div class="row">
           <div class="col-md-4">
-            <UserFollowingsCard :initial-followings="Followings" />
+            <UserFollowingsCard :followings="user.Followings" />
             <br />
 
-            <UserFollowersCard :initial-followers="Followers" />
+            <UserFollowersCard :followers="user.Followers" />
           </div>
           <div class="col-md-8">
-            <UserCommentsCard :initial-comments="Comments" />
+            <UserCommentsCard :comments="user.Comments" />
 
             <br />
 
             <UserFavoritedRestaurantsCard
-              :initial-favorited-restaurants="FavoritedRestaurants"
+              :favorited-restaurants="user.FavoritedRestaurants"
             />
           </div>
         </div>
@@ -1293,6 +1294,18 @@ const dummyData = {
   isFollowed: false,
 };
 
+const dummyUser = {
+  // 放父元件
+  currentUser: {
+    id: 1,
+    name: "管理者",
+    email: "root@example.com",
+    image: "https://i.pravatar.cc/300",
+    isAdmin: true,
+  },
+  isAuthenticated: true,
+};
+
 export default {
   name: "User",
   components: {
@@ -1304,20 +1317,28 @@ export default {
   },
   data() {
     return {
-      profile: {},
-      Comments: [],
-      FavoritedRestaurants: [],
-      Followings: [],
-      Followers: [],
+      user: {
+        id: -1,
+        name: "",
+        email: "",
+        image: "",
+        Comments: [],
+        FavoritedRestaurants: [],
+        Followings: [],
+        Followers: [],
+      },
       isFollowed: false,
+      currentUser: {},
     };
   },
   created() {
-    this.fetchProfile();
-    console.log("userId", this.$route.params.id);
+    this.fetchUser();
+    const { id } = this.$route.params;
+    // console.log("userId", this.$route.params.id);
+    // console.log("iid", id);
   },
   methods: {
-    fetchProfile() {
+    fetchUser() {
       const { profile } = dummyData;
       const { isFollowed } = dummyData;
       const {
@@ -1330,16 +1351,21 @@ export default {
         Followings,
         Followers,
       } = profile;
-      this.profile = profile;
-      this.id = id;
-      this.name = name;
-      this.email = email;
-      this.image = image;
-      this.Comments = Comments;
-      this.FavoritedRestaurants = FavoritedRestaurants;
-      this.Followings = Followings;
-      this.Followers = Followers;
+
+      this.user = {
+        ...this.user,
+        id,
+        name,
+        email,
+        image,
+        Comments,
+        FavoritedRestaurants,
+        Followings,
+        Followers,
+      };
+
       this.isFollowed = isFollowed;
+      this.currentUser = dummyUser.currentUser;
     },
   },
 };

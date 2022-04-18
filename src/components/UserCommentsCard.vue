@@ -24,23 +24,15 @@
 <script>
 export default {
   props: {
-    initialComments: {
+    comments: {
       type: Array,
       required: true,
     },
   },
   data() {
-    return {
-      comments: [],
-    };
+    return {};
   },
-  created() {
-    this.fetchComments();
-  },
-  methods: {
-    fetchComments() {
-      this.comments = this.initialComments;
-    },
-  },
+  created() {},
+  methods: {},
 };
 </script>

@@ -24,23 +24,15 @@
 <script>
 export default {
   props: {
-    initialFavoritedRestaurants: {
+    favoritedRestaurants: {
       type: Array,
       required: true,
     },
   },
   data() {
-    return {
-      favoritedRestaurants: [],
-    };
+    return {};
   },
-  created() {
-    this.fetchFavoritedRestaurants();
-  },
-  methods: {
-    fetchFavoritedRestaurants() {
-      this.favoritedRestaurants = this.initialFavoritedRestaurants;
-    },
-  },
+  created() {},
+  methods: {},
 };
 </script>

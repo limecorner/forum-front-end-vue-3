@@ -19,23 +19,15 @@
 <script>
 export default {
   props: {
-    initialFollowers: {
+    followers: {
       type: Array,
       required: true,
     },
   },
   data() {
-    return {
-      followers: [],
-    };
+    return {};
   },
-  created() {
-    this.fetchFollowers();
-  },
-  methods: {
-    fetchFollowers() {
-      this.followers = this.initialFollowers;
-    },
-  },
+  created() {},
+  methods: {},
 };
 </script>
